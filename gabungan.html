@@ -206,127 +206,283 @@
     </p>
 </section>
 
-
-
-<!-- ===================================================
-   (4) TESTIMONI + POPUP
-=================================================== -->
-<section>
-    <h2>Mereka Sudah Membuktikannya!</h2>
-    <p class="subtitle">Simak kata para pengusaha laundry pemula yang sukses setelah mengikuti panduan ini.</p>
-
-    <style>
-        .testimonial-card {
-            width:350px;margin:auto;background:#fff;padding:25px;border-radius:20px;
-            border:2px solid #19b7a3;box-shadow:0 8px 25px rgba(0,0,0,0.08);
-        }
-        .controls {margin-top:15px;display:flex;justify-content:center;gap:20px;}
-        .btn {background:#19b7a3;padding:10px 15px;border-radius:50%;color:#fff;cursor:pointer;}
-    </style>
-
-    <div id="testiCard" class="testimonial-card"></div>
-
-    <div class="controls">
-        <div class="btn" onclick="prevTesti()">❮</div>
-        <div class="btn" onclick="nextTesti()">❯</div>
-    </div>
-
-    <div id="popup-container"></div>
-</section>
-
 <!-- ===================================================
    SCRIPT TESTIMONI + POPUP
 =================================================== -->
+<!DOCTYPE html>
+<htm lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimoni + Popup</title>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: white;
+        margin: 0;
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: #063a50;
+        margin-bottom: 5px;
+    }
+
+    p.subtitle {
+        color: #4b5965;
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    /* CARD */
+    .testimonial-card {
+        width: 350px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 20px;
+        border: 2px solid #19b7a3;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        text-align: left;
+        transition: opacity 0.4s ease;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #19b7a3;
+        color: white;
+        font-weight: 700;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+    }
+
+    .name {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .role {
+        color: #555;
+        font-size: 13px;
+        margin-top: -2px;
+    }
+
+    .stars {
+        margin: 8px 0;
+        color: #f4b400;
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5;
+    }
+    /* POPUP */
+    #popup-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99999;
+    }
+
+    .popup-box {
+        width: 220px;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        border: 1px solid #e1e1e1;
+        animation: slideIn 0.5s ease;
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+    .popup-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #19b7a3;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 13px;
+        margin-right: 8px;
+    }
+
+    .popup-title {
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .popup-sub {
+        font-size: 10px;
+        color: gray;
+    }
+
+    .popup-msg {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #333;
+        text-align: left;
+    }
+
+    .popup-time {
+        margin-top: 4px;
+        font-size: 10px;
+        color: #777;
+        text-align: left;
+    }
+
+    @keyframes slideIn {
+        from {opacity: 0; transform: translateY(15px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideOut {
+        from {opacity: 1; transform: translateY(0);}
+        to {opacity: 0; transform: translateY(15px);}
+    }
+</style>
+</head>
+<body>
+
+<h2>Mereka Sudah Membuktikannya!</h2>
+<p class="subtitle">Simak kata para pengusaha laundry pemula yang sukses setelah mengikuti panduan ini.</p>
+
+<!-- CARD -->
+<div id="testiCard" class="testimonial-card"></div>
+
+<!-- POPUP -->
+<div id="popup-container"></div>
+
 <script>
-/* ---------------------- TESTIMONI ---------------------- */
+/* ============================
+   TESTIMONI
+============================ */
 const testimonials = [
-    { avatar:"B", name:"Bpk. Hery, 45 tahun", role:"Mantan Karyawan | Bandung", text:`"Awalnya bingung harus beli mesin apa. E-book ini memberikan checklist peralatan minimal yang efisien!"` },
-    { avatar:"S", name:"Siti Aminah, 32 tahun", role:"Ibu Rumah Tangga | Surabaya", text:`"Setelah baca panduan ini, saya langsung berani buka laundry kecil. Tips promosinya membantu banget!"` },
-    { avatar:"R", name:"Rizky Putra, 29 tahun", role:"Freelancer | Medan", text:`"Pembahasannya ringan tapi lengkap. Bahkan ada perhitungan modal untuk pemula. Recommended!"` },
-    { avatar:"L", name:"Lina Wati, 40 tahun", role:"Pegawai Swasta | Jakarta", text:`"Baru buka 2 minggu sudah dapat pelanggan tetap. Semua berkat panduan ini!"` }
+    { avatar: "B", name: "Bpk. Hery, 45 tahun", role: "Mantan Karyawan | Bandung", text: `"Awalnya bingung harus beli mesin apa. E-book ini memberikan checklist peralatan minimal yang efisien!"` },
+    { avatar: "S", name: "Siti Aminah, 32 tahun", role: "Ibu Rumah Tangga | Surabaya", text: `"Setelah baca panduan ini, saya langsung berani buka laundry kecil. Tips promosinya membantu banget!"` },
+    { avatar: "R", name: "Rizky Putra, 29 tahun", role: "Freelancer | Medan", text: `"Pembahasannya ringan tapi lengkap. Bahkan ada perhitungan modal untuk pemula. Recommended!"` },
+    { avatar: "L", name: "Lina Wati, 40 tahun", role: "Pegawai Swasta | Jakarta", text: `"Baru buka 2 minggu sudah dapat pelanggan tetap. Semua berkat panduan lengkap dari e-book ini!"` }
 ];
 
-let idx = 0;
+let indexT = 0;
 const card = document.getElementById("testiCard");
 
 function renderCard() {
-    const t = testimonials[idx];
+    const t = testimonials[indexT];
     card.style.opacity = 0;
 
     setTimeout(() => {
         card.innerHTML = `
-            <div style="display:flex;align-items:center;margin-bottom:10px;">
-                <div style="width:50px;height:50px;border-radius:50%;background:#19b7a3;color:white;font-weight:700;font-size:20px;display:flex;align-items:center;justify-content:center;margin-right:12px;">
-                    ${t.avatar}
-                </div>
+            <div class="profile">
+                <div class="avatar">${t.avatar}</div>
                 <div>
-                    <div style="font-weight:700;font-size:16px;">${t.name}</div>
-                    <div style="color:#555;font-size:13px;">${t.role}</div>
+                    <div class="name">${t.name}</div>
+                    <div class="role">${t.role}</div>
                 </div>
             </div>
-
-            <div style="color:#f4b400;font-size:18px;">★★★★★</div>
-            <div style="font-size:14px;color:#444;line-height:1.5;">${t.text}</div>
+            <div class="stars">★★★★★</div>
+            <div class="text">${t.text}</div>
         `;
         card.style.opacity = 1;
     }, 300);
 }
 
-function nextTesti(){ idx = (idx+1)%testimonials.length; renderCard(); }
-function prevTesti(){ idx = (idx-1+testimonials.length)%testimonials.length; renderCard(); }
+function nextTesti() {
+    indexT = (indexT + 1) % testimonials.length;
+    renderCard();
+}
+
+function prevTesti() {
+    indexT = (indexT - 1 + testimonials.length) % testimonials.length;
+    renderCard();
+}
 
 setInterval(nextTesti, 5000);
 renderCard();
 
-/* ---------------------- POPUP ---------------------- */
-const pastel = ["#FFB4C8","#B9A9FF","#AEE3FF","#FFE7A1","#A8F5D5"];
-const popData = [
-    {name:"Yuni",city:"Jakarta",product:"E-book Bisnis Laundry",message:"Baru download e-book & bonus lengkap!",time:"2 menit lalu"},
-    {name:"Dewi",city:"Bandung",product:"E-book Paket Hemat",message:"Baru download paket lengkap!",time:"5 menit lalu"},
-    {name:"Andi",city:"Surabaya",product:"E-book Bisnis Laundry",message:"Baru download e-book & bonus lengkap!",time:"1 menit lalu"},
+
+/* ============================
+   POPUP MINI – WARNA AVATAR RANDOM
+============================ */
+
+const pastelColors = [
+    "#FFB4C8", /* pink pastel */
+    "#B9A9FF", /* ungu pastel */
+    "#AEE3FF", /* biru pastel */
+    "#FFE7A1", /* kuning pastel */
+    "#A8F5D5"  /* hijau mint pastel */
+];
+
+const notifications = [
+    { name: "Yuni", city: "Jakarta", product: "E-book Bisnis Laundry", message: "Baru download e-book & bonus lengkap!", time: "2 menit lalu" },
+    { name: "Dewi", city: "Bandung", product: "E-book Paket Hemat", message: "Baru download e-book paket hemat!", time: "5 menit lalu" },
+    { name: "Andi", city: "Surabaya", product: "E-book Bisnis Laundry", message: "Baru download e-book & bonus lengkap!", time: "1 menit lalu" }
 ];
 
 let popIndex = 0;
 
-function showPopup(){
-    const item = popData[popIndex];
-    const color = pastel[Math.floor(Math.random()*pastel.length)];
+function showPopup() {
+    const item = notifications[popIndex];
+    const container = document.getElementById("popup-container");
+    const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
 
-    document.getElementById("popup-container").innerHTML = `
-        <div style="
-            width:220px;background:white;padding:12px;border-radius:14px;
-            box-shadow:0 4px 12px rgba(0,0,0,0.12);border:1px solid #e1e1e1;
-            position:fixed;bottom:20px;right:20px;z-index:99999;
-            animation:slideIn .4s ease;
-        ">
-            <div style="display:flex;align-items:center;margin-bottom:4px;">
-                <div style="width:28px;height:28px;border-radius:50%;background:${color};
-                    display:flex;align-items:center;justify-content:center;color:white;font-weight:700;margin-right:8px;">
-                    ${item.name.charAt(0)}
-                </div>
+    container.innerHTML = `
+        <div class="popup-box" id="popup">
+            <div class="popup-header">
+                <div class="popup-avatar" style="background:${color}">${item.name.charAt(0)}</div>
                 <div>
-                    <div style="font-weight:700;font-size:12px;">${item.name} · ${item.city}</div>
-                    <div style="font-size:10px;color:gray;">${item.product}</div>
+                    <div class="popup-title">${item.name} · ${item.city}</div>
+                    <div class="popup-sub">${item.product}</div>
                 </div>
             </div>
-            <div style="font-size:11px;color:#333;">✔️ ${item.message}</div>
-            <div style="font-size:10px;color:#777;margin-top:4px;">${item.time}</div>
+            <div class="popup-msg">✔️ ${item.message}</div>
+            <div class="popup-time">${item.time}</div>
         </div>
     `;
 
-    popIndex = (popIndex+1)%popData.length;
-
     setTimeout(() => {
-        document.getElementById("popup-container").innerHTML = "";
-    }, 3200);
+        const popup = document.getElementById("popup");
+        if (popup) {
+            popup.style.animation = "slideOut 0.5s ease";
+            setTimeout(() => popup.remove(), 500);
+        }
+    }, 3500);
+
+    popIndex = (popIndex + 1) % notifications.length;
 }
 
 showPopup();
-setInterval(showPopup, 6500);
+setInterval(showPopup, 7000);
 </script>
 
 </body>
-</html>
+
 
 
 <!DOCTYPE html>
@@ -563,8 +719,6 @@ setInterval(showPopup, 6500);
         <div><span class="yes">✔</span> BONUS: Checklist Peralatan & Merek</div>
         <div><span class="yes">✔</span> Garansi 7 Hari Uang Kembali</div>
     </div>
-
-    <a href="https://landingpagekamu.com/paket-lengkap" class="btn">AMBIL PAKET LENGKAP</a>
 </div>
 
 <!-- PACKAGE 2 -->
@@ -582,54 +736,52 @@ setInterval(showPopup, 6500);
         <div><span class="no">✘</span> Template SOP & Spreadsheet BEP</div>
         <div><span class="no">✘</span> Checklist Peralatan Wajib & Rekomendasi</div>
     </div>
-
-    <a href="https://landingpagekamu.com/paket-hemat" class="btn">AMBIL PAKET HEMAT</a>
 </div>
 
 <!-- ================== FAQ ================== -->
-<div class="faq-section">
-    <div class="faq-container">
+<div class="faq-container">
         <h2 class="faq-title">❓ FAQ Bisnis Laundry</h2>
-
+    
         <div class="faq">
-            <div class="faq-question">1. Apakah usaha laundry masih menguntungkan di tahun ini?</div>
+            <div class="faq-question">🤔 Apakah usaha laundry masih menguntungkan di tahun ini?</div>
             <div class="faq-answer">Ya, kebutuhan mencuci adalah kebutuhan rutin. Dalam e-book, kami menjelaskan tren dan strategi agar Anda tetap dapat pelanggan meski banyak kompetitor.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">2. Bagaimana cara menentukan harga layanan laundry yang tidak merugikan?</div>
+            <div class="faq-question">🤔 Bagaimana cara menentukan harga layanan laundry yang tidak merugikan?</div>
             <div class="faq-answer">Kami sediakan rumus perhitungan harga agar Anda bisa menetapkan tarif yang wajar, kompetitif, dan tetap memberikan keuntungan.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">3. Apakah saya perlu lokasi strategis untuk memulai?</div>
+            <div class="faq-question">🤔 Apakah saya perlu lokasi strategis untuk memulai?</div>
             <div class="faq-answer">Tidak. Anda bahkan bisa mulai dari rumah. Di e-book, kami jelaskan cara menilai potensi lokasi tanpa harus menyewa tempat mahal.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">4. Apakah e-book ini cocok untuk pemula?</div>
+            <div class="faq-question">🤔 Apakah e-book ini cocok untuk pemula yang belum pernah berbisnis?</div>
             <div class="faq-answer">Sangat cocok. Semua materi dibuat sederhana, lengkap dengan contoh, studi kasus, dan langkah-langkah yang mudah diikuti.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">5. Bagaimana cara menarik pelanggan pertama?</div>
-            <div class="faq-answer">Kami berikan strategi praktis seperti promosi awal, layanan cepat, hingga penggunaan pewangi premium.</div>
+            <div class="faq-question">🤔 Bagaimana cara menarik pelanggan pertama?</div>
+            <div class="faq-answer">Kami berikan strategi praktis seperti promosi awal, layanan cepat, dan penggunaan pewangi premium agar pelanggan mau mencoba pertama kali.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">6. Apakah bisa dijalankan sambil bekerja?</div>
-            <div class="faq-answer">Bisa. Panduan alur kerja dan manajemen waktu juga disertakan.</div>
+            <div class="faq-question">🤔 Apakah saya bisa menjalankan usaha ini sambil bekerja atau mengurus keluarga?</div>
+            <div class="faq-answer">Bisa. Kami sertakan panduan alur kerja dan cara mengatur waktu agar operasional tetap berjalan meski Anda memiliki kesibukan lain.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">7. Bagaimana menangani komplain?</div>
-            <div class="faq-answer">Kami sertakan SOP penanganan komplain agar reputasi usaha tetap terjaga.</div>
+            <div class="faq-question">🤔 Apa yang harus dilakukan jika terjadi komplain dari pelanggan?</div>
+            <div class="faq-answer">Dalam e-book, kami berikan SOP penanganan komplain agar Anda bisa menanganinya secara sopan, profesional, dan tetap menjaga kepercayaan pelanggan.</div>
         </div>
-
+    
         <div class="faq">
-            <div class="faq-question">8. Apakah dibahas tentang laundry koin?</div>
-            <div class="faq-answer">Ya, termasuk modal, kapan siap berkembang, dan strategi naik level.</div>
+            <div class="faq-question">🤔 Apakah e-book ini membahas kapan saya bisa berkembang ke laundry koin?</div>
+            <div class="faq-answer">Ya. Kami jelaskan tanda-tandanya, modal yang dibutuhkan, hingga strategi kapan bisnis siap naik level ke laundry koin.</div>
         </div>
+    
     </div>
 </div>
 
