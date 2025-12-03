@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ Accordion Tosca</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f8ffff;
+        padding: 20px;
+    }
+
+    .faq-container {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .faq-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 18px;
+        color: #007373; 
+        text-align: center; /* DIBUAT TENGAH */
+    }
+
+    .faq {
+        background: #ffffff;
+        margin-bottom: 12px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-left: 5px solid #1bb7b7; 
+    }
+
+    .faq-question {
+        font-size: 17px;
+        font-weight: bold;
+        color: #004d4d; /* LEBIH GELAP & LEBIH KONTRAS UNTUK LANSIA */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        font-size: 15px;
+        margin-top: 10px;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    .faq::after {
+        content: "+";
+        font-size: 22px;
+        color: #008c8c;
+        font-weight: bold;
+        float: right;
+        margin-top: -30px;
+    }
+
+    .faq.active::after {
+        content: "−";
+    }
+
+    .faq.active .faq-answer {
+        max-height: 300px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="faq-container">
+    <h2 class="faq-title">❓ FAQ Bisnis Laundry</h2>
+
+    <div class="faq">
+        <div class="faq-question">1. Apakah usaha laundry masih menguntungkan di tahun ini?</div>
+        <div class="faq-answer">Ya, kebutuhan mencuci adalah kebutuhan rutin. Dalam e-book, kami menjelaskan tren dan strategi agar Anda tetap dapat pelanggan meski banyak kompetitor.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">2. Bagaimana cara menentukan harga layanan laundry yang tidak merugikan?</div>
+        <div class="faq-answer">Kami sediakan rumus perhitungan harga agar Anda bisa menetapkan tarif yang wajar, kompetitif, dan tetap memberikan keuntungan.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">3. Apakah saya perlu lokasi strategis untuk memulai?</div>
+        <div class="faq-answer">Tidak. Anda bahkan bisa mulai dari rumah. Di e-book, kami jelaskan cara menilai potensi lokasi tanpa harus menyewa tempat mahal.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">4. Apakah e-book ini cocok untuk pemula yang belum pernah berbisnis?</div>
+        <div class="faq-answer">Sangat cocok. Semua materi dibuat sederhana, lengkap dengan contoh, studi kasus, dan langkah-langkah yang mudah diikuti.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">5. Bagaimana cara menarik pelanggan pertama?</div>
+        <div class="faq-answer">Kami berikan strategi praktis seperti promosi awal, layanan cepat, dan penggunaan pewangi premium agar pelanggan mau mencoba pertama kali.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">6. Apakah saya bisa menjalankan usaha ini sambil bekerja atau mengurus keluarga?</div>
+        <div class="faq-answer">Bisa. Kami sertakan panduan alur kerja dan cara mengatur waktu agar operasional tetap berjalan meski Anda memiliki kesibukan lain.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">7. Apa yang harus dilakukan jika terjadi komplain dari pelanggan?</div>
+        <div class="faq-answer">Dalam e-book, kami berikan SOP penanganan komplain agar Anda bisa menanganinya secara sopan, profesional, dan tetap menjaga kepercayaan pelanggan.</div>
+    </div>
+
+    <div class="faq">
+        <div class="faq-question">8. Apakah e-book ini membahas kapan saya bisa berkembang ke laundry koin?</div>
+        <div class="faq-answer">Ya. Kami jelaskan tanda-tandanya, modal yang dibutuhkan, hingga strategi kapan bisnis siap naik level ke laundry koin.</div>
+    </div>
+
+</div>
+
+<script>
+    document.querySelectorAll(".faq").forEach(faq => {
+        faq.addEventListener("click", () => {
+            faq.classList.toggle("active");
+        });
+    });
+</script>
+
+</body>
+</html>
