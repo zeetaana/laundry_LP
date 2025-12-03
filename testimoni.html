@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimoni + Popup</title>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: white;
+        margin: 0;
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: #063a50;
+        margin-bottom: 5px;
+    }
+
+    p.subtitle {
+        color: #4b5965;
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    /* CARD */
+    .testimonial-card {
+        width: 350px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 20px;
+        border: 2px solid #19b7a3;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        text-align: left;
+        transition: opacity 0.4s ease;
+    }
+
+    .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #19b7a3;
+        color: white;
+        font-weight: 700;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+    }
+
+    .name {
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .role {
+        color: #555;
+        font-size: 13px;
+        margin-top: -2px;
+    }
+
+    .stars {
+        margin: 8px 0;
+        color: #f4b400;
+        font-size: 18px;
+    }
+
+    .text {
+        font-size: 14px;
+        color: #444;
+        line-height: 1.5;
+    }
+
+    .controls {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn {
+        background: #19b7a3;
+        padding: 10px 15px;
+        border-radius: 50%;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+        user-select: none;
+    }
+
+    .btn:hover {
+        background: #128d7d;
+    }
+
+    /* POPUP */
+    #popup-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99999;
+    }
+
+    .popup-box {
+        width: 220px;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        border: 1px solid #e1e1e1;
+        animation: slideIn 0.5s ease;
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .popup-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+    .popup-avatar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #19b7a3;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 13px;
+        margin-right: 8px;
+    }
+
+    .popup-title {
+        font-weight: 700;
+        font-size: 12px;
+    }
+
+    .popup-sub {
+        font-size: 10px;
+        color: gray;
+    }
+
+    .popup-msg {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #333;
+        text-align: left;
+    }
+
+    .popup-time {
+        margin-top: 4px;
+        font-size: 10px;
+        color: #777;
+        text-align: left;
+    }
+
+    @keyframes slideIn {
+        from {opacity: 0; transform: translateY(15px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    @keyframes slideOut {
+        from {opacity: 1; transform: translateY(0);}
+        to {opacity: 0; transform: translateY(15px);}
+    }
+</style>
+</head>
+<body>
+
+<h2>Mereka Sudah Membuktikannya!</h2>
+<p class="subtitle">Simak kata para pengusaha laundry pemula yang sukses setelah mengikuti panduan ini.</p>
+
+<!-- CARD -->
+<div id="testiCard" class="testimonial-card"></div>
+
+<!-- BUTTON -->
+<div class="controls">
+    <div class="btn" onclick="prevTesti()">❮</div>
+    <div class="btn" onclick="nextTesti()">❯</div>
+</div>
+
+<!-- POPUP -->
+<div id="popup-container"></div>
+
+<script>
+/* ============================
+   TESTIMONI
+============================ */
+const testimonials = [
+    { avatar: "B", name: "Bpk. Hery, 45 tahun", role: "Mantan Karyawan | Bandung", text: `"Awalnya bingung harus beli mesin apa. E-book ini memberikan checklist peralatan minimal yang efisien!"` },
+    { avatar: "S", name: "Siti Aminah, 32 tahun", role: "Ibu Rumah Tangga | Surabaya", text: `"Setelah baca panduan ini, saya langsung berani buka laundry kecil. Tips promosinya membantu banget!"` },
+    { avatar: "R", name: "Rizky Putra, 29 tahun", role: "Freelancer | Medan", text: `"Pembahasannya ringan tapi lengkap. Bahkan ada perhitungan modal untuk pemula. Recommended!"` },
+    { avatar: "L", name: "Lina Wati, 40 tahun", role: "Pegawai Swasta | Jakarta", text: `"Baru buka 2 minggu sudah dapat pelanggan tetap. Semua berkat panduan lengkap dari e-book ini!"` }
+];
+
+let indexT = 0;
+const card = document.getElementById("testiCard");
+
+function renderCard() {
+    const t = testimonials[indexT];
+    card.style.opacity = 0;
+
+    setTimeout(() => {
+        card.innerHTML = `
+            <div class="profile">
+                <div class="avatar">${t.avatar}</div>
+                <div>
+                    <div class="name">${t.name}</div>
+                    <div class="role">${t.role}</div>
+                </div>
+            </div>
+            <div class="stars">★★★★★</div>
+            <div class="text">${t.text}</div>
+        `;
+        card.style.opacity = 1;
+    }, 300);
+}
+
+function nextTesti() {
+    indexT = (indexT + 1) % testimonials.length;
+    renderCard();
+}
+
+function prevTesti() {
+    indexT = (indexT - 1 + testimonials.length) % testimonials.length;
+    renderCard();
+}
+
+setInterval(nextTesti, 5000);
+renderCard();
+
+
+/* ============================
+   POPUP MINI – WARNA AVATAR RANDOM
+============================ */
+
+const pastelColors = [
+    "#FFB4C8", /* pink pastel */
+    "#B9A9FF", /* ungu pastel */
+    "#AEE3FF", /* biru pastel */
+    "#FFE7A1", /* kuning pastel */
+    "#A8F5D5"  /* hijau mint pastel */
+];
+
+const notifications = [
+    { name: "Yuni", city: "Jakarta", product: "E-book Bisnis Laundry", message: "Baru download e-book & bonus lengkap!", time: "2 menit lalu" },
+    { name: "Dewi", city: "Bandung", product: "E-book Paket Hemat", message: "Baru download e-book paket hemat!", time: "5 menit lalu" },
+    { name: "Andi", city: "Surabaya", product: "E-book Bisnis Laundry", message: "Baru download e-book & bonus lengkap!", time: "1 menit lalu" }
+];
+
+let popIndex = 0;
+
+function showPopup() {
+    const item = notifications[popIndex];
+    const container = document.getElementById("popup-container");
+    const color = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+
+    container.innerHTML = `
+        <div class="popup-box" id="popup">
+            <div class="popup-header">
+                <div class="popup-avatar" style="background:${color}">${item.name.charAt(0)}</div>
+                <div>
+                    <div class="popup-title">${item.name} · ${item.city}</div>
+                    <div class="popup-sub">${item.product}</div>
+                </div>
+            </div>
+            <div class="popup-msg">✔️ ${item.message}</div>
+            <div class="popup-time">${item.time}</div>
+        </div>
+    `;
+
+    setTimeout(() => {
+        const popup = document.getElementById("popup");
+        if (popup) {
+            popup.style.animation = "slideOut 0.5s ease";
+            setTimeout(() => popup.remove(), 500);
+        }
+    }, 3500);
+
+    popIndex = (popIndex + 1) % notifications.length;
+}
+
+showPopup();
+setInterval(showPopup, 7000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paket E-book</title>
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: #ffffff;
+        margin: 0;
+        padding: 40px 10px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 28px;
+        font-weight: 800;
+        color: #063a50;
+        margin-bottom: 5px;
+    }
+
+    p.subtitle {
+        color: #535e67;
+        margin-top: 0;
+        margin-bottom: 60px;
+        font-size: 15px;
+    }
+
+    /* CARD */
+    .package {
+        width: 90%;
+        max-width: 380px; /* DIPERKECIL */
+        margin: 0 auto 35px;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 20px;
+
+        /* DESAIN LEBIH MENARIK */
+        border: 2px solid #c8f3eb;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        position: relative;
+
+        /* gradient lembut */
+        background: linear-gradient(135deg, #ffffff 0%, #f7fffd 100%);
+    }
+
+    /* Badge */
+    .badge {
+    position: absolute;
+    top: -35px; /* JARAK DITURUNKAN */
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ffb400, #ff9900);
+    padding: 8px 22px; /* sedikit dibesarkan agar lebih proporsional */
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: 0 4px 10px rgba(255,165,0,0.35);
+}
+
+    .title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #045a59;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .old-price {
+        font-size: 14px;
+        color: #888;
+        text-decoration: line-through;
+    }
+
+    .price-box {
+        background: #f0fffc;
+        padding: 20px;
+        border-radius: 16px;
+        margin: 18px 0;
+        border: 2px solid #c5f0ea;
+    }
+
+    .new-price {
+        font-size: 30px;
+        font-weight: 800;
+        color: #063a50;
+        margin: 6px 0;
+    }
+
+    .sub {
+        color: #4f5b63;
+        font-size: 14px;
+    }
+
+    /* List */
+    .features {
+        text-align: left;
+        margin-top: 20px;
+    }
+
+    .features div {
+        margin-bottom: 11px;
+        font-size: 14px;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .yes {
+        color: #0db36d;
+        font-size: 18px;
+        margin-top: -2px;
+    }
+
+    .no {
+        color: #e64b4b;
+        font-size: 18px;
+        margin-top: -2px;
+    }
+
+    /* BUTTON */
+    .btn {
+        margin-top: 20px;
+        display: block;
+        background: white;
+        color: #14b8a6;
+        padding: 14px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 16px;
+        border: 2px solid #14b8a6;
+     
+    }
+
+  .btn,
+.btn-outline {
+    transition: all 0.25s ease;
+}
+
+.btn:hover,
+.btn-outline:hover {
+    transform: scale(1.05);
+}
+
+.btn:active,
+.btn-outline:active {
+    transform: scale(0.96);
+}
+
+</style>
+</head>
+<body>
+
+<h2>Pilih Opsi Akses Anda</h2>
+<p class="subtitle">Dapatkan jalan pintas menuju bisnis laundry yang menguntungkan.</p>
+
+<!-- PACKAGE 1 -->
+<div class="package">
+    <div class="badge">PALING LARIS & DIREKOMENDASIKAN!</div>
+
+    <div class="title">PAKET LENGKAP – Nilai Total <br><b>Rp324.000</b></div>
+
+    <div class="price-box">
+        <div class="old-price">Harga Normal Rp324.000</div>
+        <div class="new-price">Rp149.000</div>
+        <div class="sub">Hemat Ratusan Ribu • Akses Seumur Hidup</div>
+    </div>
+
+    <div class="features">
+        <div><span class="yes">✔</span> E-book Utama: "Cepat Balik Modal"</div>
+        <div><span class="yes">✔</span> BONUS: Template SOP Laundry</div>
+        <div><span class="yes">✔</span> BONUS: Spreadsheet Hitung Balik Modal</div>
+        <div><span class="yes">✔</span> BONUS: Checklist Peralatan & Merek</div>
+        <div><span class="yes">✔</span> Garansi 7 Hari Uang Kembali</div>
+    </div>
+
+    <a href="https://landingpagekamu.com/paket-lengkap" class="btn">AMBIL PAKET LENGKAP</a>
+
+</div>
+
+<!-- PACKAGE 2 -->
+<div class="package">
+    <div class="title">Opsi Hemat: E-book Panduan Dasar</div>
+
+    <div class="price-box">
+        <div class="old-price">Rp125.000</div>
+        <div class="new-price">Rp100.000</div>
+        <div class="sub">Hanya E-book (PDF/MOBI)</div>
+    </div>
+
+    <div class="features">
+        <div><span class="yes">✔</span> E-book Lengkap "Cepat Balik Modal"</div>
+        <div><span class="no">✘</span> Template SOP & Spreadsheet BEP</div>
+        <div><span class="no">✘</span> Checklist Peralatan Wajib & Rekomendasi</div>
+    </div>
+
+  <a href="https://landingpagekamu.com/paket-hemat" class="btn btn-outline">AMBIL PAKET HEMAT</a>
+
+</div>
+
+</body>
+</html>
